@@ -1,5 +1,6 @@
 const express=require('express');
-const port=2000;
+const cookieParser=require('cookie-parser');
+const port=3000;
 const app= express();
 const expressLayouts=require('express-ejs-layouts');
 const db=require('./config/mongoose');
@@ -16,6 +17,7 @@ app.set('views','./views');
 
 //now separate the file
 app.use(express.urlencoded());
+app.use(cookieParser());
 app.use('/',require('./routes'));
 
 app.listen(port,function(err){
