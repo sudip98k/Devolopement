@@ -1,11 +1,12 @@
  <h1>My Home Page</h1>
 <section id="feed-post">
    <h4>Post</h4>
+   <% if(locals.user){%>
    <form action="/posts/create" id="new-post-form" method="post">
       <textarea name="content" id="" cols="30" rows="3" placeholder="type here...."></textarea>
       <input type="submit" value="Post">
    </form>
-
+   <% } %>
    <div id="posts-list-container">
      <ul>
          <%for(post of posts){%>
