@@ -7,19 +7,33 @@
       <input type="submit" value="Post">
    </form>
    <% } %>
+   
    <div id="posts-list-container">
      <ul>
          <%for(post of posts){%>
 
             <li>
+               <p>
                <%=post.content%>
                <br>
                <small>
                   <h3><%=post.user.name%></h3>
                </small>
+               </p>
+               <div class="post-comments">
+                  <%if(locals.user){%>
+                     <form action="/comments/create" method="post">
+                        <input type="text" name="content" id="" placeholder="Add Comment..">
+                        <input type="text" name="post" value="<%= post._id%>">
+                        <input type="submit"  value="Add Comment">
+                     </form>
+
+                  <%}%>
+               </div>
             </li>
 
          <%}%>
+
      </ul>
    </div>
     
