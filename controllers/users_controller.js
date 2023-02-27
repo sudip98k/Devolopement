@@ -1,29 +1,27 @@
 const User=require('../models/user');
 module.exports.profile = function(req,res){
-
-        return res.render('profile',{
+    let id=req.params.id;
+        User.findById(id,function(err,user){
            
-            title:"UserProfile"
-
+            return res.render('profile',{
+                title:"UserProfile",
+                profile_user:user
+            })
         })
-
-    // if(req.cookies.user_id){
-    //     User.findById(req.cookies.user_id,function(err,user){
-    //         console.log('user',user);
-    //         if(user){
-    //             return res.render('profile',{
-    //                 title:"UserProfile",
-    //                 user:user
-    //             });
-    //         }
-
-    //         res.redirect('/users/sign-in');
-    //     });
-    // }
-    // else{
-    //     res.redirect('/users/sign-in');
-    // }
 }
+module.exports.update=function(req, res){
+    if(req.user.id == req.params.id){
+        let id=req.params.id;
+        console.log("Login User id:",id);
+        User.findByIdAndUpdate(id,req.body,function(err,user){
+            return res.redirect('back');
+        });
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
+}
+
+
 module.exports.signIn=function(req,res){
     if(req.isAuthenticated()){
         return res.redirect('/users/profile');
