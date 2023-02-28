@@ -18,6 +18,7 @@ app.set('layout extractScripts',true);
 //static file for assests
 app.use(express.static('./assests'));
 
+app.use('/uploads',express.static(__dirname+'/uploads'));
 // app.set('view engine','ejs');
 // app.set('views','./views');
 
