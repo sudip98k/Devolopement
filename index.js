@@ -4,15 +4,15 @@ const port=4000;
 const app= express();
 const expressLayouts=require('express-ejs-layouts');
 const db=require('./config/mongoose');
+const flash=require('connect-flash');
 app.use(expressLayouts);
 
 //use for session
 const passport= require('passport');
 const passportLocal= require('./config/passport-local-strategy');
 const session=require('express-session');
-
 const MongoStore=require('connect-mongo');
-
+const customMware= require('./config/middleware');
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
 //static file for assests
@@ -52,8 +52,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
-
-
+app.use(flash());
+app.use(customMware.setFlash);
 app.use('/',require('./routes'));
 
 app.listen(port,function(err){
